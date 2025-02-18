@@ -14,8 +14,8 @@ const premierSans = localFont({
 });
 
 export const metadata = {
-  title: 'CricPredict - Cricket Prediction App',
-  description: 'Predict cricket matches and compete in leagues',
+  title: 'CTPredict',
+  description: 'Predict CT matches and compete in leagues',
 };
 
 export default function RootLayout({ children }) {

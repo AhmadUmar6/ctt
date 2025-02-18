@@ -238,7 +238,7 @@ export default function SignupForm() {
       case 5:
         return (
           <div className="w-full">
-            <h3 className="text-2xl font-medium text-white mb-6">Create a password</h3>
+            <h3 className="text-2xl font-medium text-white mb-6">Create a password (minimum 8 characters)</h3>
             <input
               type="password"
               value={formData.password}
