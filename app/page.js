@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import useAuthStore from '@/lib/authStore';
 import Navbar from '@/components/shared/Navbar';
 import AuthGuard from '@/components/shared/AuthGuard';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import PredictionsSection from '@/components/dashboard/PredictionsSection';
 import LeaguesSection from '@/components/dashboard/LeaguesSection';
-import { collection, doc, getDoc, query, orderBy, where, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc, query, orderBy, where, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 // Extended mapping for cricket-playing nations
@@ -37,6 +37,92 @@ function getCountryFlag(country) {
     'UAE': '🇦🇪',
   };
   return mapping[country] || '🏳️';
+}
+
+// First-time User Onboarding Modal
+function OnboardingModal({ isOpen, onClose }) {
+  const [currentStep, setCurrentStep] = useState(0);
+  
+  const steps = [
+    {
+      title: "Welcome to CT Predictor!",
+      content: "Make predictions for Champions Trophy matches and compete with friends worldwide.",
+      icon: "🏏"
+    },
+    {
+      title: "How to Score Points",
+      content: "Earn 50 points for correct match result predictions and 100 points for correct MOTM predictions.",
+      icon: "🎯"
+    },
+    {
+      title: "Create & Join Leagues",
+      content: "Create your own leagues and invite friends to compete in private leaderboards.",
+      icon: "🏆"
+    }
+  ];
+  
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      onClose();
+    }
+  };
+  
+  if (!isOpen) return null;
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center px-4"
+    >
+      <div className="absolute inset-0 bg-black bg-opacity-60" onClick={onClose}></div>
+      <motion.div
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 20 }}
+        className="relative bg-white rounded-xl overflow-hidden max-w-md w-full shadow-2xl"
+        style={{
+          background: 'linear-gradient(135deg, #37003C, #6900a5)',
+        }}
+      >
+        {/* Progress bar */}
+        <div className="bg-white bg-opacity-10 h-1 w-full">
+          <div 
+            className="h-full bg-[#00FF87] transition-all duration-300"
+            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+          ></div>
+        </div>
+        
+        <div className="p-6">
+          <div className="mb-8 flex justify-center">
+            <div className="w-20 h-20 rounded-full bg-white bg-opacity-10 flex items-center justify-center">
+              <span className="text-4xl">{steps[currentStep].icon}</span>
+            </div>
+          </div>
+          
+          <h2 className="text-2xl font-bold text-white mb-4 text-center">
+            {steps[currentStep].title}
+          </h2>
+          
+          <p className="text-white text-opacity-80 text-center mb-8">
+            {steps[currentStep].content}
+          </p>
+          
+          <div className="flex justify-center">
+            <button
+              onClick={handleNext}
+              className="px-8 py-3 bg-[#00FF87] text-[#37003C] font-bold rounded-full hover:bg-opacity-90 transition"
+            >
+              {currentStep < steps.length - 1 ? "Next" : "Get Started!"}
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 }
 
 // Improved SummaryCard Component with better content containment
@@ -183,6 +269,31 @@ function SummaryCard() {
 export default function Dashboard() {
   const { user } = useAuthStore();
   const [activeTab, setActiveTab] = useState('predictions');
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Check if user is first time visitor
+  useEffect(() => {
+    async function checkFirstTimeVisit() {
+      if (user?.uid) {
+        try {
+          const userDocRef = doc(db, 'users', user.uid);
+          const docSnap = await getDoc(userDocRef);
+          
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            if (userData.hasSeenOnboarding !== true) {
+              setShowOnboarding(true);
+              // Update user document to mark onboarding as seen
+              await setDoc(userDocRef, { hasSeenOnboarding: true }, { merge: true });
+            }
+          }
+        } catch (error) {
+          console.error('Error checking first time visit:', error);
+        }
+      }
+    }
+    checkFirstTimeVisit();
+  }, [user]);
 
   return (
     <AuthGuard>
@@ -219,6 +330,16 @@ export default function Dashboard() {
             </button>
           </div>
         </nav>
+        
+        {/* Onboarding Modal */}
+        <AnimatePresence>
+          {showOnboarding && (
+            <OnboardingModal 
+              isOpen={showOnboarding} 
+              onClose={() => setShowOnboarding(false)} 
+            />
+          )}
+        </AnimatePresence>
       </div>
     </AuthGuard>
   );
