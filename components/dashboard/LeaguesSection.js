@@ -759,7 +759,7 @@ function JoinLeagueModal({ onClose }) {
           });
         }
       }
-      setSuccess('LEAGUE JOINED SUCCESSFULLY, PLEASE REFRESH TO SEE UR LEAGUE');
+      setSuccess('LEAGUE JOINED SUCCESSFULLY (Please refresh to see your league');
     } catch (error) {
       console.error('Error joining league:', error);
       setError('An error occurred. Please try again.');

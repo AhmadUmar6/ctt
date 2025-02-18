@@ -116,7 +116,7 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-md bg-[#37003C] rounded-xl shadow-xl p-6 mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">Welcome Back!</h2>
+        <h2 className="text-3xl font-bold text-white mb-4">Sign In</h2>
         <div className="flex justify-center items-center space-x-2">
           {[1, 2].map((i) => (
             <div
