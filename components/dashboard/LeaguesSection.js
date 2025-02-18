@@ -291,7 +291,7 @@ export default function LeaguesSection() {
                         className="py-2 px-4 flex justify-between text-white hover:bg-[#290038] transition-colors duration-150"
                       >
                         <span>
-                          {idx + 1}. {u.teamName}
+                          {idx + 1}. {u.teamName} <span className="italic">({u.name})</span>
                         </span>
                         <span>{u.points} pts</span>
                       </li>
@@ -332,7 +332,7 @@ export default function LeaguesSection() {
                         className="py-2 px-4 flex justify-between text-white hover:bg-[#290038] transition-colors duration-150"
                       >
                         <span>
-                          {idx + 1}. {u.teamName}
+                          {idx + 1}. {u.teamName} <span className="italic">({u.name})</span>
                         </span>
                         <span>{u.points} pts</span>
                       </li>
@@ -484,7 +484,7 @@ function LeaderboardModal({ onClose, fullLeaderboard, loading }) {
               {fullLeaderboard.map((u, idx) => (
                 <tr key={u.id} className="border-b border-[#01FF86] hover:bg-[#290038] transition-colors duration-150">
                   <td className="px-4 py-3 text-white">{idx + 1}</td>
-                  <td className="px-4 py-3 text-white">{u.teamName}</td>
+                  <td className="px-4 py-3 text-white">{u.teamName} <span className="italic">({u.name})</span></td>
                   <td className="px-4 py-3 text-white">{u.points}</td>
                 </tr>
               ))}
@@ -563,7 +563,7 @@ function PrivateLeagueModal({ league, onClose }) {
               {leagueMembers.map((member, idx) => (
                 <tr key={member.uid} className="border-b border-[#01FF86] hover:bg-[#290038] transition-colors duration-150">
                   <td className="px-4 py-3 text-white">{idx + 1}</td>
-                  <td className="px-4 py-3 text-white">{member.teamName}</td>
+                  <td className="px-4 py-3 text-white">{member.teamName} <span className="italic">({member.name})</span></td>
                   <td className="px-4 py-3 text-white">{member.points}</td>
                 </tr>
               ))}
