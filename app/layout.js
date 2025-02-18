@@ -14,7 +14,7 @@ const premierSans = localFont({
 });
 
 export const metadata = {
-  title: 'CTPredict',
+  title: 'CT Predictor',
   description: 'Predict CT matches and compete in leagues',
 };
 
