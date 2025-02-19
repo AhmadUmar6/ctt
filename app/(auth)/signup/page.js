@@ -59,7 +59,7 @@ export default function SignupPage() {
         pointerEvents: 'auto'
       }}>
         Designed by: <a 
-          href="https://www.ahmadumar.space" 
+          href="#" 
           target="_blank" 
           rel="noopener noreferrer" 
           style={{ 

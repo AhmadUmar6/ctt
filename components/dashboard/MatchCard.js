@@ -238,7 +238,8 @@ export default function MatchCard({ match }) {
   // --- PREDICTION WINDOW LOGIC (based on PKT) ---
   // Given PKT is UTC+5, we can calculate:
   // Allowed Start: Previous day 4:00 PM PKT = Previous day 11:00 AM UTC
-  // Allowed End:   Match day 1:00 PM PKT = Match day 8:00 AM UTC
+  // Allowed End: For most matches: Match day 1:00 PM PKT = Match day 8:00 AM UTC
+  //   Exception: For the match with matchid = 1 (Pakistan vs. New Zealand Match 1), extend to 3:00 PM PKT = 10:00 AM UTC
   const matchStartUTC = new Date(match.startTime);
   const allowedStartUTC = new Date(Date.UTC(
     matchStartUTC.getUTCFullYear(),
@@ -246,12 +247,25 @@ export default function MatchCard({ match }) {
     matchStartUTC.getUTCDate() - 1, // previous day
     11, 0, 0
   ));
-  const allowedEndUTC = new Date(Date.UTC(
-    matchStartUTC.getUTCFullYear(),
-    matchStartUTC.getUTCMonth(),
-    matchStartUTC.getUTCDate(),
-    8, 0, 0
-  ));
+
+  let allowedEndUTC;
+  if (Number(match.id) === 1) {
+    // Extended window to 3:00 PM PKT (10:00 AM UTC)
+    allowedEndUTC = new Date(Date.UTC(
+      matchStartUTC.getUTCFullYear(),
+      matchStartUTC.getUTCMonth(),
+      matchStartUTC.getUTCDate(),
+      10, 0, 0
+    ));
+  } else {
+    // Default window to 1:00 PM PKT (8:00 AM UTC)
+    allowedEndUTC = new Date(Date.UTC(
+      matchStartUTC.getUTCFullYear(),
+      matchStartUTC.getUTCMonth(),
+      matchStartUTC.getUTCDate(),
+      8, 0, 0
+    ));
+  }
 
   // For display, use toLocaleString with the user's time zone.
   const displayOptions = {
