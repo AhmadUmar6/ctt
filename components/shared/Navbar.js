@@ -37,12 +37,14 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             <Link href="/" className="flex items-center space-x-2 group no-underline">
               <span className="text-3xl md:text-3xl font-bold text-white">
-                CT Predictor   
+                CT Predictor
               </span>
             </Link>
-            <Link href="/bracket" className="flex items-center space-x-2 text-white no-underline">
-              <span>Bracket<span role="img" aria-label="fire">🔥</span></span>
-            </Link>
+            {user && (
+              <Link href="/bracket" className="flex items-center space-x-2 text-white no-underline">
+                <span>Bracket<span role="img" aria-label="fire">🔥</span></span>
+              </Link>
+            )}
           </div>
           <div className="flex items-center space-x-4">
             {user && (
