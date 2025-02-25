@@ -4,10 +4,12 @@ import useAuthStore from '@/lib/authStore';
 import { FiLogOut } from 'react-icons/fi';
 import { auth } from '@/lib/firebase';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Update import to useRouter from next/navigation
 
 export default function Navbar() {
   const { user, loading } = useAuthStore();
   const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await auth.signOut();
+      router.push('/login'); // Redirect to login page after logout
     } catch (error) {
       console.error('Logout error:', error);
     }
@@ -31,11 +34,16 @@ export default function Navbar() {
     <nav className={`fixed w-full top-0 z-50 transition-all duration-300 bg-[#37003C] border-b border-gray-300`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20"> {/* Increased height */}
-          <Link href="/" className="flex items-center space-x-2 group no-underline">
-            <span className="text-3xl md:text-3xl font-bold text-white">
-              CT Predictor
-            </span>
-          </Link>
+          <div className="flex items-center space-x-4">
+            <Link href="/" className="flex items-center space-x-2 group no-underline">
+              <span className="text-3xl md:text-3xl font-bold text-white">
+                CT Predictor   
+              </span>
+            </Link>
+            <Link href="/bracket" className="flex items-center space-x-2 text-white no-underline">
+              <span>Bracket<span role="img" aria-label="fire">🔥</span></span>
+            </Link>
+          </div>
           <div className="flex items-center space-x-4">
             {user && (
               <button
