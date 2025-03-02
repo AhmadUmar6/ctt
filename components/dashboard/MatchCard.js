@@ -177,8 +177,20 @@ const getFormBadge = (result) => {
       );
     case 'T':
       return (
-        <span className="inline-block w-6 h-6 bg-yellow-500 rounded-full text-white text-xs font-bold flex items-center justify-center">
+        <span className="inline-block w-6 h-6 bg-gray-400 rounded-full text-white text-xs font-bold flex items-center justify-center">
           T
+        </span>
+      );
+    case 'NR':
+      return (
+        <span className="inline-block w-6 h-6 bg-gray-400 rounded-full text-white text-xs font-bold flex items-center justify-center">
+          NR
+        </span>
+      );
+    case 'A':
+      return (
+        <span className="inline-block w-6 h-6 bg-gray-400 rounded-full text-white text-xs font-bold flex items-center justify-center">
+          A
         </span>
       );
     default:

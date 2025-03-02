@@ -137,24 +137,24 @@ export const matches = [
   },
   {
     id: 13,
-    team1: { name: 'TBC', logo: '/tbc.png' },
-    team2: { name: 'TBC', logo: '/tbc.png' },
+    team1: { name: 'Australia', logo: '/australia.png' },
+    team2: { name: 'India', logo: '/india.png' },
     matchday: '1st Semi-Final (A1 v B2)',
     startTime: '2025-03-04T09:00:00Z',
     recentForm: {
-      team1: ['T', 'T', 'T'],
-      team2: ['T', 'T', 'T'],
+      team1: ['W', 'NR', 'NR'],
+      team2: ['W', 'W', 'W'],
     },
   },
   {
     id: 14,
-    team1: { name: 'TBC', logo: '/tbc.png' },
-    team2: { name: 'TBC', logo: '/tbc.png' },
+    team1: { name: 'New Zealand', logo: '/newzealand.png' },
+    team2: { name: 'South Africa', logo: '/southafrica.png' },
     matchday: '2nd Semi-Final (B1 v A2)',
     startTime: '2025-03-05T09:00:00Z',
     recentForm: {
-      team1: ['T', 'T', 'T'],
-      team2: ['T', 'T', 'T'],
+      team1: ['W', 'W', 'L'],
+      team2: ['W', 'NR', 'W'],
     },
   },
   {
