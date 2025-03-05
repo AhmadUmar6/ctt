@@ -256,7 +256,7 @@ export default function MatchCard({ match }) {
   const allowedStartUTC = new Date(Date.UTC(
     matchStartUTC.getUTCFullYear(),
     matchStartUTC.getUTCMonth(),
-    matchStartUTC.getUTCDate() - 1, // previous day
+    matchStartUTC.getUTCDate() - 4, // previous day
     11, 0, 0
   ));
 

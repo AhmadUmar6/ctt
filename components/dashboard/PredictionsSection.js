@@ -159,13 +159,13 @@ export const matches = [
   },
   {
     id: 15,
-    team1: { name: 'TBC', logo: '/tbc.png' },
-    team2: { name: 'TBC', logo: '/tbc.png' },
+    team1: { name: 'India', logo: '/india.png' },
+    team2: { name: 'New Zealand', logo: '/newzealand.png' },
     matchday: 'Final',
     startTime: '2025-03-09T09:00:00Z',
     recentForm: {
-      team1: ['T', 'T', 'T'],
-      team2: ['T', 'T', 'T'],
+      team1: ['W', 'W', 'W'],
+      team2: ['W', 'L', 'W'],
     },
   },
 ];
